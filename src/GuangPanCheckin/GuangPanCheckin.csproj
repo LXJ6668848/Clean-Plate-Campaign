@@ -8,8 +8,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>GuangPanCheckin</RootNamespace>
     <AssemblyName>GuangPanCheckin</AssemblyName>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
     <Product>光盘打卡提醒</Product>
     <Company>local</Company>
     <SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>

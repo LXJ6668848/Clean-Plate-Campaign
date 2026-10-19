@@ -65,6 +65,22 @@ internal static class Program
         }
 
         ApplicationConfiguration.Initialize();
+
+        // 兜底：任何未处理异常都要留下日志并告知用户，不能像之前那样静默消失
+        Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+        Application.ThreadException += (_, e) =>
+        {
+            AppLog.Warn("UI 线程未处理异常: " + e.Exception);
+            MessageBox.Show(
+                "程序遇到一个问题，已经记到日志里了。\n\n" + e.Exception.Message +
+                "\n\n如果界面不见了，请在托盘图标上重新打开；仍然不行就重启本程序。",
+                "光盘打卡提醒", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        };
+        AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+        {
+            AppLog.Warn("后台线程未处理异常: " + e.ExceptionObject);
+        };
+
         var ctx = new TrayContext();
 
         // 只有开机自启（--autostart）才安静地待在托盘；手动双击一律把窗口打开

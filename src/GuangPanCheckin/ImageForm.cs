@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace GuangPanCheckin;
@@ -10,6 +11,14 @@ namespace GuangPanCheckin;
 /// </summary>
 public sealed class ImageForm : Form
 {
+    [DllImport("user32.dll")]
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr insertAfter, int x, int y, int cx, int cy, uint flags);
+
+    private static readonly IntPtr TopMostFlag = new(-1);
+    private const uint SwpNoSize = 0x0001;
+    private const uint SwpNoMove = 0x0002;
+    private const uint SwpNoActivate = 0x0010;
+
     public event Action? AckCheckin;
 
     private const int PaneWidth = 320;
@@ -81,14 +90,27 @@ public sealed class ImageForm : Form
         var wa = Screen.FromPoint(Cursor.Position).WorkingArea;
         Location = new Point(wa.Right - Width - 16, wa.Bottom - Height - 16);
         if (!Visible) Show();
-        BringToFront();
+        ForceTopMost();
     }
 
     /// <summary>已经开着时再点「去打卡」，叫到最前面而不是再开一个。</summary>
     public void Nudge()
     {
+        if (!Visible) Show();
+        ForceTopMost();
+        try { Activate(); } catch { }
+    }
+
+    /// <summary>TopMost 属性在「不带焦点显示」时偶尔不生效，直接用 Win32 顶一次。</summary>
+    private void ForceTopMost()
+    {
+        try
+        {
+            if (Handle != IntPtr.Zero)
+                SetWindowPos(Handle, TopMostFlag, 0, 0, 0, 0, SwpNoMove | SwpNoSize | SwpNoActivate);
+        }
+        catch { }
         BringToFront();
-        Activate();
     }
 
     private void OnPaneDown(object? sender, MouseEventArgs e)
