@@ -14,13 +14,15 @@ Windows 托盘小工具：按学校「每日最多 3 次、每次间隔至少 2 
 
 | 方式 | 适合谁 | 链接 |
 |---|---|---|
-| **① 发布页下载（推荐）** | 普通用户，点一下就能存 | [**→ 打开 Release 页面下载**](https://github.com/LXJ6668848/Clean-Plate-Campaign/releases/latest) ，在 `Assets` 里点 `光盘打卡提醒.exe` |
+| **① 发布页下载（推荐）** | 普通用户，点一下就能存 | [**→ 打开 Release 页面**](https://github.com/LXJ6668848/Clean-Plate-Campaign/releases/latest) ，在 `Assets` 里点 `GuangPanCheckin-v1.1.0-win-x64.exe` |
 | ② 仓库内直接下载 | 想顺便看看源码 | 打开 [`release/光盘打卡提醒.exe`](release/光盘打卡提醒.exe) → 点右上角 **Download** 按钮 |
 | ③ 命令行下载 | 习惯用终端 | 见下方 PowerShell 片段 |
 
+> Release 附件用英文名是为了避开部分浏览器/下载器对中文文件名的乱码；下载后**重命名为 `光盘打卡提醒.exe` 或任意名字都能正常运行**，程序不依赖文件名。
+
 ```powershell
 # 方式三：直接下载到「下载」文件夹
-$url = "https://github.com/LXJ6668848/Clean-Plate-Campaign/releases/latest/download/光盘打卡提醒.exe"
+$url = "https://github.com/LXJ6668848/Clean-Plate-Campaign/releases/download/v1.1.0/GuangPanCheckin-v1.1.0-win-x64.exe"
 Invoke-WebRequest -Uri $url -OutFile "$env:USERPROFILE\Downloads\光盘打卡提醒.exe"
 
 # 下载后核对校验值（应与下方 v1.1.0 的 SHA256 完全一致）
