@@ -1,6 +1,8 @@
-光盘打卡提醒.exe  v1.0  (win-x64, self-contained)
-size   : 48070280 bytes
-sha256 : 6F82B4475A468D2956285D8FB6429837A8B79B95563C246FE085DB6DBA9980F5
+光盘打卡提醒.exe  v1.1.0  (win-x64, self-contained)
+size   : 48073597 bytes
+sha256 : FC5BBE60AAE8837332EAEA7E5A7978DD4F35686A901E0963694E5A51E4AF9171
 
 核对方式（PowerShell）：
   Get-FileHash .\光盘打卡提醒.exe -Algorithm SHA256
+或（CMD）：
+  certutil -hashfile 光盘打卡提醒.exe SHA256
